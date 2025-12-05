@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Admin - Sahabat Quran</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logoYSQ.png" alt="Sahabat Quran" class="logo-img">
+            </div>
+            
+            <nav class="menu">
+                <a href="Admin.html" class="menu-item active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="daftar_jadwal.html" class="menu-item"><i class="fas fa-calendar-alt"></i> Daftar Jadwal</a>
+                <a href="daftar_kelas.html" class="menu-item"><i class="fas fa-book"></i> Daftar Kelas</a>
+                <a href="daftar_santri.html" class="menu-item"><i class="fas fa-user-graduate"></i> Daftar Santri</a>
+                <a href="daftar_pengajar.html" class="menu-item"><i class="fas fa-chalkboard-teacher"></i> Daftar Pengajar</a>
+                <a href="riwayat_absensi.html" class="menu-item"><i class="fas fa-clipboard-list"></i> Riwayat Absensi</a>
+                <a href="#" class="menu-item"><i class="fas fa-scroll"></i> Rapor</a>
+                <a href="#" class="menu-item"><i class="fas fa-file-alt"></i> Laporan</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="footer-buttons-wrapper"> 
+                    <a href="#" class="footer-btn setting">
+                        <i class="fas fa-cog"></i> Setting Profil
+                    </a>
+                    <a href="#" class="footer-btn logout">
+                        <i class="fas fa-sign-out-alt"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <h1 class="header-title">Daftar Registrasi</h1>
+                <div class="admin-profile">
+                    <span class="header-date" id="current-date-display">Rabu, 19 November 2025</span>
+                </div>
+            </header>
+
+            <section class="reg-stats-cards">
+                <div class="stat-card reg-card">
+                    <span class="stat-label">Pendaftar</span>
+                    <span class="stat-value">12</span>
+                </div>
+                <div class="stat-card reg-card">
+                    <span class="stat-label">Menunggu verifikasi</span>
+                    <span class="stat-value">12</span>
+                </div>
+                <div class="stat-card reg-card">
+                    <span class="stat-label">Diterima</span>
+                    <span class="stat-value">12</span>
+                </div>
+                <div class="stat-card reg-card total-kuota">
+                    <span class="stat-label">Sisa Kuota</span>
+                    <span class="stat-value">12</span>
+                </div>
+            </section>
+            <section class="reg-controls-section">
+                <div class="search-export-container">
+                    
+                    <div class="search-box">
+                        <input type="text" placeholder="Cari Pendaftar...">
+                        <button><i class="fas fa-search"></i></button>
+                    </div>
+
+                    <div class="action-buttons-group">
+                        <button class="action-btn-form export-btn">
+                            <i class="fas fa-file-export"></i> Ekspor Laporan
+                        </button>
+                         <button class="action-btn-form reset-btn">
+                            Reset Pendaftaran Tahunan
+                        </button>
+                    </div>
+
+                </div>
+            </section>
+            <section class="pendaftar-table-reg">
+                <div class="section-title reg-table-title">Siswa Pendaftar</div>
+                <table class="class-list-table">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Nama Lengkap</th>
+                            <th>Tempat Lahir</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Nomor WhatsApp</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="status-btn status-ditolak">Ditolak</button></td>
+                        </tr>
+                        <tr>
+                            <td>2.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="status-btn status-diterima">Diterima</button></td>
+                        </tr>
+                        <tr>
+                            <td>3.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="status-btn status-detail">Lihat Detail</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+            <div class="reg-footer-actions">
+                <a href="Admin.html" class="action-btn-form back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+            </div>
+            </main>
+    </div>
+    <div id="notification-toast" class="toast-notification"></div>
+<div id="popup-profile-setting" class="modal-overlay">
+    <div class="profile-setting-content">
+        <button class="close-btn" id="btn-close-profil-x">
+            &times;
+        </button>
+        <div class="profile-avatar-large">R</div>
+        
+        <div class="profile-field-group">
+            <div>
+                <label>Nama</label> :
+                <input type="text" id="profile-name-input" class="profile-input" placeholder="" />
+            </div>
+            <div>
+                <label>Email</label> :
+                <input type="email" id="profile-email-input" class="profile-input" placeholder="" />
+            </div>
+            <div>
+                <label>No. Telepon</label> :
+                <input type="tel" id="profile-phone-input" class="profile-input" placeholder="" />
+            </div>
+        </div>
+        
+        <div class="profile-actions">
+            <button type="button" class="profile-action-btn profile-cancel-btn" id="btn-cancel-profil">Batal</button>
+            <button type="submit" class="profile-action-btn profile-save-btn" id="btn-simpan-profil">Simpan</button>
+        </div>
+    </div>
+</div>
+    <script src="script.js"></script>
+</body>
+</html>
