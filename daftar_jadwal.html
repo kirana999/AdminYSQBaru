@@ -153,6 +153,132 @@
         </div>
     </div>
 </div>
+<div id="edit-jadwal-modal" class="modal-overlay">
+    <div class="edit-jadwal-content">
+        <button class="close-btn" id="btn-close-edit-x">&times;</button>
+        <h2 class="modal-title-edit">Edit Jadwal Kelas: <span id="kelas-nama-edit">Usman II (Dewasa)</span></h2>
+
+        <div class="edit-form-group">
+            <div class="form-row-edit">
+                <div class="input-group-edit">
+                    <label for="pengajar-utama">Pengajar Utama:</label>
+                    <select id="pengajar-utama">
+                        <option value="zahra">Zahra</option>
+                        <option value="budi">Budi</option>
+                    </select>
+                </div>
+                <div class="input-group-edit">
+                    <label for="periode-mulai">Periode Mulai:</label>
+                    <input type="date" id="periode-mulai" value="2025-10-02">
+                </div>
+            </div>
+            <div class="form-row-edit">
+                <div class="input-group-edit">
+                    <label for="jumlah-siswa-maks">Jumlah Siswa Maks.:</label>
+                    <input type="number" id="jumlah-siswa-maks" value="10">
+                </div>
+                <div class="input-group-edit">
+                    <label for="periode-berakhir">Periode Berakhir:</label>
+                    <input type="date" id="periode-berakhir" value="2025-12-02">
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title-edit">Daftar Sesi Pembelajaran</h3>
+
+        <div class="sesi-table-container">
+            <table class="sesi-list-table">
+                <thead>
+                    <tr>
+                        <th>NO</th>
+                        <th>Sesi</th>
+                        <th>Hari</th>
+                        <th>Waktu</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="sesi-table-body">
+                    <tr data-sesi-id="S01">
+                        <td>1</td>
+                        <td>Tahsin 1</td>
+                        <td>Senin</td>
+                        <td>08.00-09.00</td>
+                        <td>Aktif</td>
+                        <td><a href="#" class="btn-hapus-sesi">Hapus</a></td>
+                    </tr>
+                    <tr data-sesi-id="S02">
+                        <td>2</td>
+                        <td>Tahfidz</td>
+                        <td>Senin</td>
+                        <td>09.00-10.00</td>
+                        <td>Aktif</td>
+                        <td><a href="#" class="btn-hapus-sesi">Hapus</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="modal-footer-edit">
+            <button class="profile-action-btn profile-cancel-btn" id="btn-edit-cancel">Batal</button>
+            <button class="profile-action-btn profile-save-btn" id="btn-edit-simpan">Simpan Perubahan</button>
+        </div>
+    </div>
+</div>
+
+<div id="tambah-jadwal-modal" class="modal-overlay">
+    <div class="tambah-jadwal-content">
+        <button class="close-btn" id="btn-close-tambah-x">&times;</button>
+        <h2 class="modal-title-tambah">Tambah Jadwal</h2>
+
+        <form id="form-tambah-jadwal">
+            <div class="input-group-full">
+                <label for="kelas-tingkatan">Kelas/tingkatan</label>
+                <input type="text" id="kelas-tingkatan" placeholder="Contoh: Usman II (Dewasa)" required>
+            </div>
+            
+            <div class="form-row-tambah">
+                <div class="input-group-tambah">
+                    <label for="pengajar-tambah">Pengajar</label>
+                    <select id="pengajar-tambah" required>
+                        <option value="">Pilih Pengajar</option>
+                        <option value="zahra">Zahra</option>
+                        <option value="budi">Budi</option>
+                    </select>
+                </div>
+                <div class="input-group-tambah">
+                    <label for="hari-tambah">Hari</label>
+                    <select id="hari-tambah" required>
+                        <option value="">Pilih Hari</option>
+                        <option value="senin">Senin</option>
+                        <option value="selasa">Selasa</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-row-tambah">
+                <div class="input-group-tambah">
+                    <label for="waktu-mulai">Waktu mulai</label>
+                    <input type="time" id="waktu-mulai" required>
+                </div>
+                <div class="input-group-tambah">
+                    <label for="waktu-selesai">Waktu selesai</label>
+                    <input type="time" id="waktu-selesai" required>
+                </div>
+            </div>
+            
+            <div class="input-group-full">
+                <label for="waktu-periode">Waktu Periode</label>
+                <input type="text" id="waktu-periode" placeholder="Contoh: 3 Bulan / 1 Semester" required>
+            </div>
+
+            <div class="modal-footer-tambah">
+                <button type="button" class="action-btn-form cancel-btn-tambah" id="btn-tambah-cancel">Batalkan</button>
+                <button type="submit" class="action-btn-form save-btn-tambah" id="btn-tambah-simpan">Simpan</button>
+            </div>
+        </form>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 </html>

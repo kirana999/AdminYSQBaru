@@ -102,7 +102,7 @@
                             <td>Bogor</td>
                             <td>7 Mei 2009</td>
                             <td>088882464738</td>
-                            <td><button class="status-btn status-ditolak">Ditolak</button></td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R001">Lihat Detail</button></td>
                         </tr>
                         <tr>
                             <td>2.</td>
@@ -110,7 +110,7 @@
                             <td>Bogor</td>
                             <td>7 Mei 2009</td>
                             <td>088882464738</td>
-                            <td><button class="status-btn status-diterima">Diterima</button></td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R002">Lihat Detail</button></td>
                         </tr>
                         <tr>
                             <td>3.</td>
@@ -118,8 +118,63 @@
                             <td>Bogor</td>
                             <td>7 Mei 2009</td>
                             <td>088882464738</td>
-                            <td><button class="status-btn status-detail">Lihat Detail</button></td>
-                        </tr>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R003">Lihat Detail</button></td>
+                                </tr>
+                        <tr>
+                            <td>4.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R004">Lihat Detail</button></td>
+                                    </tr>
+                        <tr>
+                            <td>5.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R005">Lihat Detail</button></td>
+                                    </tr>
+                        <tr>
+                            <td>6.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R006">Lihat Detail</button></td>
+                                    </tr>
+                        <tr>
+                            <td>7.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R007">Lihat Detail</button></td>
+                                    </tr>
+                        <tr>
+                            <td>8.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R008">Lihat Detail</button></td>
+                                    </tr>
+                        <tr>
+                            <td>9.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R009">Lihat Detail</button></td>
+                                    </tr>
+                        <tr>
+                            <td>10.</td>
+                            <td>Jingga</td>
+                            <td>Bogor</td>
+                            <td>7 Mei 2009</td>
+                            <td>088882464738</td>
+                            <td><button class="btn-lihat-detail status-detail" data-id="R010">Lihat Detail</button></td>
                     </tbody>
                 </table>
             </section>
@@ -156,6 +211,71 @@
         <div class="profile-actions">
             <button type="button" class="profile-action-btn profile-cancel-btn" id="btn-cancel-profil">Batal</button>
             <button type="submit" class="profile-action-btn profile-save-btn" id="btn-simpan-profil">Simpan</button>
+        </div>
+    </div>
+</div>
+<div id="detail-pendaftar-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2 class="modal-title">Detail Pendaftar</h2>
+
+        <div class="detail-form">
+            <div class="detail-row">
+                <span class="detail-label">Nama Lengkap</span>
+                <span class="detail-separator">:</span>
+                <span class="detail-value" id="nama-lengkap-value"></span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Email</span>
+                <span class="detail-separator">:</span>
+                <span class="detail-value" id="email-value"></span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Tanggal Lahir</span>
+                <span class="detail-separator">:</span>
+                <span class="detail-value" id="tanggal-lahir-value"></span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Tempat Lahir</span>
+                <span class="detail-separator">:</span>
+                <span class="detail-value" id="tempat-lahir-value"></span>
+            </div>
+
+            <div class="detail-row">
+                <span class="detail-label">Nomor WhatsApp</span>
+                <span class="detail-separator">:</span>
+                <span class="detail-value" id="nomor-whatsapp-value"></span>
+            </div>
+        </div>
+
+        <h3 class="status-title">Status Menunggu Verifikasi</h3>
+
+        <div class="action-buttons">
+            <button class="action-button diterima">Diterima</button>
+            <button class="action-button ditolak">Ditolak</button>
+        </div>
+    </div>
+</div>
+<div id="konfirmasi-reset-modal" class="modal-reset">
+    <div class="modal-reset-content">
+        <div class="reset-icon-warning">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+        
+        <h2 class="reset-title">Konfirmasi Reset Pendaftaran</h2>
+        
+        <p class="reset-message">Apakah Anda yakin ingin menghapus seluruh data pendaftaran tahun ini?</p>
+        
+        <div class="reset-actions">
+            <button class="action-btn-form reset-confirm-btn" id="btn-reset-confirm">
+                Ya, Hapus Sekarang
+            </button>
+            <button class="action-btn-form reset-cancel-btn" id="btn-reset-cancel">
+                Batalkan
+            </button>
         </div>
     </div>
 </div>

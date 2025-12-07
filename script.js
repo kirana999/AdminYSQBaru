@@ -57,13 +57,49 @@ window.onload = function() {
     // 🏷️ TAG: Variabel MINI PROFILE TOGGLE
     const adminIcon = document.getElementById('dashboard-admin-icon'); 
     const miniPopup = document.getElementById('popup-profile-mini');
-    
-    // 🏷️ TAG: Variabel MODAL DETAIL PENDAFTAR
-    this.detailPopup = document.getElementById('popup-detail-pendaftar');
-    this.detailAcceptBtn = document.querySelector('.action-btn-popup.detail-diterima');
-    this.detailRejectBtn = document.querySelector('.action-btn-popup.detail-ditolak');
-    this.profileNameInput = document.getElementById('profile-name-input');
 
+    // 🏷️ TAG: Variabel MODAL DETAIL PENDAFTAR (DASHBOARD)
+    const detailModal = document.getElementById("detail-pendaftar-modal"); 
+    const detailCloseButton = detailModal ? detailModal.querySelector(".close-button") : null;
+    const detailTerimaButton = detailModal ? detailModal.querySelector(".diterima") : null;
+    const detailTolakButton = detailModal ? detailModal.querySelector(".ditolak") : null;
+
+    // Selektor tabel yang benar: tabel dengan class 'dashboard-pendaftar-table'
+    const pendaftarTableBody = document.querySelector('.dashboard-pendaftar-table tbody');
+    
+        // Selektor untuk tabel di halaman Daftar Registrasi
+    const registrasiTableBody = document.querySelector('.class-list-table tbody');
+    
+    // Variabel untuk menyimpan data baris pendaftar yang sedang aktif
+    let activeRowData = null;
+
+    // 🏷️ TAG: Variabel RESET MODAL
+    const btnOpenReset = document.querySelector('.reset-btn'); 
+    const resetModal = document.getElementById('konfirmasi-reset-modal');
+    const btnResetConfirm = document.getElementById('btn-reset-confirm');
+    const btnResetCancel = document.getElementById('btn-reset-cancel');
+
+    // 🏷️ TAG: Variabel MODAL EDIT JADWAL
+    const editJadwalModal = document.getElementById('edit-jadwal-modal');
+    const btnCloseEditX = document.getElementById('btn-close-edit-x');
+    const btnEditCancel = document.getElementById('btn-edit-cancel');
+    const btnEditSimpan = document.getElementById('btn-edit-simpan'); 
+    const jadwalTableBody = document.querySelector('.schedule-list-table tbody');
+
+    // 🏷️ TAG: Variabel MODAL TAMBAH JADWAL
+const btnOpenTambahJadwal = document.querySelector('.add-schedule-btn');
+const tambahJadwalModal = document.getElementById('tambah-jadwal-modal');
+const btnCloseTambahX = document.getElementById('btn-close-tambah-x');
+const btnTambahCancel = document.getElementById('btn-tambah-cancel');
+const btnTambahSimpan = document.getElementById('btn-tambah-simpan');
+const formTambahJadwal = document.getElementById('form-tambah-jadwal');
+
+// 🏷️ TAG: Variabel MODAL TAMBAH KELAS
+    const btnOpenTambahKelas = document.getElementById('btn-open-tambah-kelas'); // ID tombol pembuka di header Daftar Kelas
+    const tambahKelasModal = document.getElementById('tambah-kelas-modal');
+    const btnCloseTambahKelasX = document.getElementById('btn-close-tambah-kelas-x');
+    const btnCancelKelas = document.getElementById('btn-cancel-kelas');
+    const formTambahKelas = document.getElementById('form-tambah-kelas');
 
     // ----------------------------------------------------
     // II. DEFINISI FUNGSI PEMBANTU
@@ -72,8 +108,22 @@ window.onload = function() {
     function hideProfileModal() {
         if (modalSetting) { modalSetting.style.display = 'none'; }
     }
+
+    function closeTambahJadwalModal() {
+    // Ambil elemen DOM secara lokal (alternatif deklarasi global)
+    const tambahJadwalModal = document.getElementById('tambah-jadwal-modal');
+    const formTambahJadwal = document.getElementById('form-tambah-jadwal');
     
-    // ❌ FUNGSI hideKelasModal DIHAPUS (Karena modal kelas dihapus)
+    if (tambahJadwalModal) tambahJadwalModal.style.display = 'none';
+    if (formTambahJadwal) formTambahJadwal.reset();
+
+    function closeTambahKelasModal() {
+        // Ambil elemen DOM secara lokal jika diperlukan, atau gunakan variabel global yang sudah dideklarasikan
+        if (tambahKelasModal) tambahKelasModal.style.display = 'none';
+        if (formTambahKelas) formTambahKelas.reset();
+    }
+    
+}
 
     /** 🏷️ TAG: FUNGSI SINKRONISASI REAL-TIME */
     function syncProfileData() {
@@ -184,6 +234,155 @@ window.onload = function() {
     setTimeout(updateRealTimeDate, 60000); 
 }
 
+/* 🏷️ TAG: FUNGSI DETAIL PENDAFTAR (FRONTEND MURNI) */
+
+    /** Mengisi data ke dalam elemen-elemen di modal/popup. */
+    function fillModalData(data) {
+        document.getElementById('nama-lengkap-value').textContent = data.namaLengkap || 'N/A';
+        // Email diisi data dummy karena tidak ada di tabel dashboard
+        document.getElementById('email-value').textContent = data.email || 'email@sahabatquran.com'; 
+        document.getElementById('tanggal-lahir-value').textContent = data.tanggalLahir || 'N/A';
+        document.getElementById('tempat-lahir-value').textContent = data.tempatLahir || 'N/A';
+        document.getElementById('nomor-whatsapp-value').textContent = data.nomorWhatsApp || 'N/A';
+    }
+
+    /** Fungsi untuk memuat detail pendaftar dari BARIS TABEL (DOM). */
+    function loadPendaftarDetail(row) {
+        // Ambil data dari sel (cell) di baris yang diklik
+        // Struktur tabel: [0: No, 1: Nama Lengkap, 2: Tempat Lahir, 3: Tanggal Lahir, 4: Nomor WhatsApp, 5: Status Button]
+        
+        const dataForModal = {
+        id: row.cells[5].querySelector('.btn-lihat-detail') ? row.cells[5].querySelector('.btn-lihat-detail').getAttribute('data-id') : 'N/A', 
+        namaLengkap: row.cells[1] ? row.cells[1].textContent.trim() : 'Nama tidak ditemukan',
+        tempatLahir: row.cells[2] ? row.cells[2].textContent.trim() : 'Tempat tidak ditemukan',
+        tanggalLahir: row.cells[3] ? row.cells[3].textContent.trim() : 'Tanggal tidak ditemukan',
+        nomorWhatsApp: row.cells[4] ? row.cells[4].textContent.trim() : 'No. HP tidak ditemukan',
+        email: row.cells[1] ? `${row.cells[1].textContent.trim().split(' ')[0].toLowerCase()}@sahabatquran.com` : 'email@sahabatquran.com'
+    };
+
+    // ✅ PERBAIKAN: activeRowData menjadi objek yang menyimpan data dan elemen baris.
+    activeRowData = {
+        ...dataForModal, // Salin semua properti data
+        rowElement: row // TAMBAHKAN REFERENSI ELEMEN BARIS DI SINI
+    };
+    
+    fillModalData(dataForModal); // Tampilkan data ke modal
+    if (detailModal) detailModal.style.display = "flex"; // Buka modal
+    }
+
+    /** Fungsi untuk menampilkan notifikasi saat tombol aksi diklik (tanpa backend). */
+    function handleActionClick(status) {
+        if (!activeRowData || !activeRowData.rowElement) {
+            showToast("Gagal memproses. Data pendaftar tidak ditemukan.", "cancel");
+            return;
+        }
+        
+        // Ambil elemen baris yang sedang aktif dan sel status (Kolom ke-5 / indeks 4 di array cells)
+        const row = activeRowData.rowElement;
+        const statusCell = row.cells[5]; 
+        
+        // 1. Buat tombol status baru
+        const newButton = document.createElement('button');
+        newButton.classList.add('btn-lihat-detail');
+        newButton.setAttribute('data-id', activeRowData.id);
+        
+        let statusClass = '';
+        
+        if (status === 'Diterima') {
+            statusClass = 'status-diterima';
+            newButton.textContent = 'Diterima';
+        } else if (status === 'Ditolak') {
+            statusClass = 'status-ditolak';
+            newButton.textContent = 'Ditolak';
+        } else {
+            statusClass = 'status-detail'; 
+            newButton.textContent = 'Lihat Detail';
+        }
+        
+        newButton.classList.add(statusClass);
+        
+        // 2. Ganti konten di sel Status
+        if (statusCell) {
+            statusCell.innerHTML = '';
+            statusCell.appendChild(newButton);
+        }
+        
+        // 3. Tampilkan Notifikasi dan Tutup Modal
+        showToast(`Pendaftar ${activeRowData.namaLengkap} di-status: ${status}.`, "success");
+        if (detailModal) detailModal.style.display = "none";
+    }
+    
+    // ===================================================
+// 🏷️ TAG: C. LOGIKA MODAL TAMBAH KELAS (BARU)
+// ===================================================
+
+const KelasModalHandler = {
+    // Properti untuk menyimpan referensi elemen DOM
+    btnOpen: null, // Menggantikan btnTambahKelas
+    modal: null,
+    btnBatal: null,
+    form: null,
+
+    init: function() {
+        // Mendapatkan referensi elemen DOM
+        // Asumsi: Tombol "Tambah Kelas" menggunakan kelas yang sama dengan Tambah Pengajar: .add-teacher-btn
+        this.btnOpen = document.querySelector('.add-teacher-btn'); 
+        this.modal = document.getElementById('modalTambahKelas');
+        this.btnBatal = document.getElementById('btnBatal');
+        this.form = document.getElementById('formTambahKelas');
+
+        if (this.btnOpen && this.modal && this.btnBatal && this.form) {
+            this.setupEventListeners();
+        } else {
+            // Ini akan dieksekusi hanya jika berada di halaman NON-Daftar Kelas
+            // console.warn("Modal Tambah Kelas tidak diinisialisasi: Elemen DOM tidak ditemukan.");
+        }
+    },
+
+    setupEventListeners: function() {
+        this.btnOpen.addEventListener('click', this.openModal.bind(this));
+        this.btnBatal.addEventListener('click', this.closeModal.bind(this));
+        window.addEventListener('click', this.handleOutsideClick.bind(this));
+        this.form.addEventListener('submit', this.handleSubmit.bind(this));
+    },
+
+    openModal: function(e) {
+        e.preventDefault();
+        this.modal.style.display = 'flex';
+    },
+
+    closeModal: function() {
+        this.modal.style.display = 'none';
+        this.form.reset();
+        showToast("Penambahan kelas dibatalkan.", "cancel");
+    },
+
+    handleOutsideClick: function(event) {
+        if (event.target === this.modal) {
+            this.closeModal();
+        }
+    },
+
+    handleSubmit: function(e) {
+        e.preventDefault();
+        
+        // --- LOGIKA PENGUMPULAN DATA ---
+        const kelas = document.getElementById('kelas-tingkatan').value;
+        // ... (ambil semua data input lainnya di sini) ...
+        
+        console.log(`Mengirim data kelas ${kelas} ke server...`);
+        showToast(`Mengirim data kelas ${kelas} ke server...`, "success");
+        
+        // **********************************************
+        // * Lakukan FUNGSI BACKEND (Fetch API/AJAX) di sini *
+        // **********************************************
+        
+        // Tutup modal setelah submit
+        this.modal.style.display = 'none';
+        this.form.reset();
+        // showToast("Kelas berhasil disimpan!", "success"); // Panggil ini setelah sukses API
+    }
+};
 
     // ----------------------------------------------------
     // III. IMPLEMENTASI EVENT LISTENERS
@@ -231,6 +430,65 @@ window.onload = function() {
             }
         });
     }
+
+    // 🏷️ TAG: B. LOGIKA MODAL DETAIL PENDAFTAR (INTI PERMINTAAN)
+
+// 1. Event Delegation untuk Tombol "Lihat Detail" di Halaman Registrasi
+if (registrasiTableBody) {
+    registrasiTableBody.addEventListener('click', (e) => {
+        // Cek apakah elemen yang diklik adalah tombol Lihat Detail
+        // (Ini akan menangkap tombol 'Ditolak', 'Diterima', dan 'Lihat Detail')
+        if (e.target.tagName === 'BUTTON') { 
+            
+            const row = e.target.closest('tr'); 
+            
+            if (row) {
+                // Panggil fungsi yang memuat data dari baris dan membuka modal
+                loadPendaftarDetail(row);
+            } else {
+                console.error("Baris tabel (tr) tidak ditemukan di halaman registrasi.");
+            }
+        }
+    });
+}
+    // 2. Event Delegation untuk Tombol "Lihat Detail" di Halaman Dashboard
+    if (pendaftarTableBody) {
+        pendaftarTableBody.addEventListener('click', (e) => {
+            // Cek apakah elemen yang diklik adalah tombol Lihat Detail dengan class 'btn-lihat-detail'
+            if (e.target.classList.contains('btn-lihat-detail')) {
+                
+                // Ambil baris tabel (<tr>) terdekat dari tombol yang diklik
+                const row = e.target.closest('tr'); 
+                
+                if (row) {
+                    loadPendaftarDetail(row);
+                } else {
+                    console.error("Baris tabel (tr) tidak ditemukan.");
+                }
+            }
+        });
+    }
+
+    // 2. Tombol Aksi Verifikasi (Hanya Frontend Toast)
+    if (detailTerimaButton) {
+        detailTerimaButton.addEventListener('click', () => handleActionClick('Diterima'));
+    }
+    if (detailTolakButton) {
+        detailTolakButton.addEventListener('click', () => handleActionClick('Ditolak'));
+    }
+
+
+    // 3. Menutup Modal Detail Pendaftar (Tombol X)
+    if (detailCloseButton) {
+        detailCloseButton.addEventListener('click', () => {
+            if (detailModal) detailModal.style.display = "none";
+        });
+    }
+
+    // TUTUP MODAL DETAIL PENDAFTAR JIKA KLIK DI LUAR
+    if (detailModal && event.target === detailModal) { 
+        detailModal.style.display = "none"; // Pastikan ini tetap 'none'
+    }
     
     // 🏷️ TAG: C. LOGIKA TOGGLE MINI PROFILE & OVERLAY UMUM
     
@@ -243,16 +501,204 @@ window.onload = function() {
             }
         });
     }
-    
+
+    // 🏷️ TAG: D. LOGIKA MODAL RESET PENDAFTARAN
+// Buka Modal
+if (btnOpenReset) {
+    btnOpenReset.addEventListener('click', function() {
+        if (resetModal) resetModal.style.display = 'flex';
+    });
+}
+
+// Tutup Modal (Batalkan)
+if (btnResetCancel) {
+    btnResetCancel.addEventListener('click', function() {
+        if (resetModal) resetModal.style.display = 'none';
+        showToast("Proses reset dibatalkan.", "cancel");
+    });
+}
+
+// Konfirmasi Reset (Contoh Aksi)
+if (btnResetConfirm) {
+    btnResetConfirm.addEventListener('click', function() {
+        // Logika Reset Data Tahunan (Backend akan dipanggil di sini)
+        
+        if (resetModal) resetModal.style.display = 'none';
+        showToast("Seluruh data pendaftaran berhasil di-reset!", "success");
+        
+        // TODO: Tambahkan kode untuk me-reload/memperbarui tabel data di sini
+    });
+}
+
+// 🏷️ TAG: E. LOGIKA MODAL EDIT JADWAL
+if (jadwalTableBody) {
+    jadwalTableBody.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Cek apakah yang diklik adalah ikon pensil (edit)
+        // Asumsi: Ikon pensil berada di dalam <a> atau <button> dengan class 'edit-btn'
+        const editButton = e.target.closest('.edit-btn'); 
+        
+        if (editButton || e.target.classList.contains('fa-pen-to-square')) {
+            e.preventDefault();
+            const row = e.target.closest('tr');
+            
+            if (row) {
+                // Ambil data dasar dari baris (NO, Kelas, Pengajar, dst.)
+                const kelasNama = row.cells[1].textContent.trim();
+                
+                // Isi data ke modal (minimal nama kelas)
+                document.getElementById('kelas-nama-edit').textContent = kelasNama;
+                
+                // Tampilkan modal
+                if (editJadwalModal) editJadwalModal.style.display = 'flex';
+            }
+        }
+    });
+}
+        // SIMPAN PERUBAHAN JADWAL
+if (btnEditSimpan) {
+    btnEditSimpan.addEventListener('click', function(e) {
+        e.preventDefault(); // Mencegah form submit default jika ada
+        
+        // Logika Simpan data (nanti diimplementasikan dengan backend)
+        let saveSuccess = true;
+        
+        if (saveSuccess) {
+            // Tutup Modal
+            if (editJadwalModal) editJadwalModal.style.display = 'none';
+            
+            // Tampilkan Toast Sukses
+            showToast("Perubahan jadwal berhasil disimpan!", "success");
+            
+            // TODO: Tambahkan kode untuk me-reload/memperbarui tabel data di sini
+        }
+    });
+}
+    // TUTUP MODAL EDIT JADWAL (Tombol X dan Batalkan)
+// Tombol X
+if (btnCloseEditX) {
+    btnCloseEditX.addEventListener('click', () => {
+        if (editJadwalModal) editJadwalModal.style.display = 'none';
+    });
+}
+
+// Tombol Batalkan
+if (btnEditCancel) {
+    btnEditCancel.addEventListener('click', () => {
+        if (editJadwalModal) editJadwalModal.style.display = 'none';
+        showToast("Pengeditan jadwal dibatalkan.", "cancel");
+    });
+}
+
+
+// 🏷️ TAG: F. LOGIKA MODAL TAMBAH JADWAL (Koreksi Total)
+
+if (btnOpenTambahJadwal) {
+    btnOpenTambahJadwal.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (tambahJadwalModal) tambahJadwalModal.style.display = 'flex';
+    });
+}
+
+// 1. TUTUP MODAL DENGAN TOMBOL X
+if (btnCloseTambahX) {
+    btnCloseTambahX.addEventListener('click', function() {
+        closeTambahJadwalModal();
+        showToast("Penambahan jadwal dibatalkan.", "cancel");
+    });
+}
+
+// 2. TUTUP MODAL DENGAN TOMBOL BATALKAN
+if (btnTambahCancel) {
+    btnTambahCancel.addEventListener('click', function() {
+        closeTambahJadwalModal();
+        showToast("Penambahan jadwal dibatalkan.", "cancel");
+    });
+}
+
+// 3. AKSI SIMPAN (TRIGGERED OLEH SUBMIT FORM)
+if (formTambahJadwal) {
+    formTambahJadwal.addEventListener('submit', function(e) {
+        e.preventDefault(); // Mencegah form reload halaman
+
+        // Tutup Modal
+        closeTambahJadwalModal();
+        
+        // Notifikasi ke user bahwa data sedang diproses
+        showToast("Mengirim data jadwal baru ke server...", "success");
+
+        // TODO: Ambil data form dan panggil API backend untuk membuat jadwal baru di sini
+    });
+}
+
+// 🏷️ TAG: G. LOGIKA MODAL TAMBAH KELAS
+
+// 1. Buka Modal
+if (btnOpenTambahKelas) {
+    btnOpenTambahKelas.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (tambahKelasModal) tambahKelasModal.style.display = 'flex';
+    });
+}
+
+// 2. Tombol Tutup X
+if (btnCloseTambahKelasX) {
+    btnCloseTambahKelasX.addEventListener('click', function() {
+        if (tambahKelasModal) tambahKelasModal.style.display = 'none'; // Langsung tutup
+        if (formTambahKelas) formTambahKelas.reset();
+        showToast("Penambahan kelas dibatalkan.", "cancel");
+    });
+}
+
+// 3. Tombol Batalkan
+if (btnCancelKelas) {
+    btnCancelKelas.addEventListener('click', function() {
+        if (tambahKelasModal) tambahKelasModal.style.display = 'none'; // Langsung tutup
+        if (formTambahKelas) formTambahKelas.reset();
+        showToast("Penambahan kelas dibatalkan.", "cancel");
+    });
+}
+
+// 4. Aksi Simpan (Submit Form)
+if (formTambahKelas) {
+    formTambahKelas.addEventListener('submit', function(e) {
+        e.preventDefault(); 
+        
+        // Logika Simpan ke Backend di sini
+        
+        if (tambahKelasModal) tambahKelasModal.style.display = 'none'; // Langsung tutup
+        if (formTambahKelas) formTambahKelas.reset();
+
+        showToast("Kelas baru berhasil ditambahkan!", "success");
+    });
+}
+
+    // Tutup modal jika klik di luar
     window.addEventListener('click', (event) => {
         if (event.target === modalSetting) { hideProfileModal(); }
-        // ❌ Logika tutup modalTambahKelas DIHAPUS
         
         // TUTUP MINI POPUP JIKA KLIK DI LUAR
         if (miniPopup && event.target !== adminIcon && !adminIcon.contains(event.target) && !miniPopup.contains(event.target)) {
             miniPopup.style.display = 'none';
         }
-    });
+
+        // Tutup Modal Reset
+    if (resetModal && event.target === resetModal) {
+        resetModal.style.display = "none";
+        showToast("Proses reset dibatalkan.", "cancel");
+    }
+
+    if (editJadwalModal && event.target === editJadwalModal) {
+        editJadwalModal.style.display = "none";
+    }
+
+    // Logika khusus untuk modal tambah jadwal
+    if (tambahJadwalModal && event.target === tambahJadwalModal) {
+        closeTambahJadwalModal();
+        showToast("Penambahan jadwal dibatalkan.", "cancel");
+    }
+
+});
     
 
     // --- D. EKSEKUSI AKHIR ---

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Kelas - Sahabat Quran</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="page-tambah-kelas">
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logoYSQ.png" alt="Sahabat Quran" class="logo-img">
+            </div>
+            
+            <nav class="menu">
+                <a href="Admin.html" class="menu-item active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="daftar_jadwal.html" class="menu-item"><i class="fas fa-calendar-alt"></i> Daftar Jadwal</a>
+                <a href="daftar_kelas.html" class="menu-item"><i class="fas fa-book"></i> Daftar Kelas</a>
+                <a href="daftar_santri.html" class="menu-item"><i class="fas fa-user-graduate"></i> Daftar Santri</a>
+                <a href="daftar_pengajar.html" class="menu-item"><i class="fas fa-chalkboard-teacher"></i> Daftar Pengajar</a>
+                <a href="riwayat_absensi.html" class="menu-item"><i class="fas fa-clipboard-list"></i> Riwayat Absensi</a>
+                <a href="#" class="menu-item"><i class="fas fa-scroll"></i> Rapor</a>
+                <a href="#" class="menu-item"><i class="fas fa-file-alt"></i> Laporan</a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <div class="footer-buttons-wrapper"> 
+                    <button type="button" class="footer-btn setting" id="btn-open-profil">
+                        <i class="fas fa-cog"></i> Setting Profil
+                    </button>
+                    <a href="#" class="footer-btn logout">
+                        <i class="fas fa-sign-out-alt"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </aside>
+<main class="main-content">
+    <header class="dashboard-header class-header-style">
+        <h1 class="header-title">Detail Data Santri</h1>
+        <span class="header-date" id="current-date-display">Minggu, 7 Desember 2025</span>
+    </header>
+
+    <div class="detail-santri-wrapper">
+        <div class="detail-santri-header">
+            
+            <div class="detail-actions">
+                <button class="action-btn-form detail-edit-btn" id="btn-edit-santri">
+                    Edit
+                </button>
+                <button class="action-btn-form detail-save-btn" id="btn-simpan-santri" style="display:none;">
+                    Simpan
+                </button>
+            </div>
+        </div>
+        
+        <form id="santri-detail-form">
+            <div class="info-section info-dasar">
+                <h2 class="info-title">Informasi Dasar</h2>
+                <div class="form-row-detail">
+                    <div class="input-group-detail">
+                        <label for="nisn">NISN</label>
+                        <input type="text" id="nisn" value="9876543210" disabled>
+                    </div>
+                    <div class="input-group-detail">
+                        <label for="nama-lengkap">Nama Lengkap</label>
+                        <input type="text" id="nama-lengkap" value="Dewi Sartika" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row-detail">
+                    <div class="input-group-detail">
+                        <label for="alamat">Alamat</label>
+                        <input type="text" id="alamat" value="Jl. Merdeka No. 10" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row-detail">
+                    <div class="input-group-detail">
+                        <label for="tanggal-lahir">Tanggal Lahir</label>
+                        <input type="date" id="tanggal-lahir" value="2000-01-01" disabled>
+                    </div>
+                    <div class="input-group-detail">
+                        <label for="tempat-lahir">Tempat Lahir</label>
+                        <input type="text" id="tempat-lahir" value="Bogor" disabled>
+                    </div>
+                </div>
+
+                <div class="form-row-detail">
+                    <div class="input-group-detail">
+                        <label for="no-telepon">No. Telepon</label>
+                        <input type="tel" id="no-telepon" value="08123456789" disabled>
+                    </div>
+                    <div class="input-group-detail">
+                        <label for="kelas-santri">Kelas</label>
+                        <select id="kelas-santri" disabled>
+                            <option value="dewasa">Dewasa</option>
+                            <option value="anak">Anak</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-section info-akun">
+                <h2 class="info-title">Informasi Akun</h2>
+                <div class="form-row-detail">
+                    <div class="input-group-detail">
+                        <label for="username">Username</label>
+                        <input type="text" id="username" value="dewi.sartika" disabled>
+                    </div>
+                    <div class="input-group-detail">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="dewi@example.com" disabled>
+                    </div>
+                </div>
+                
+                <div class="form-row-detail">
+                    <div class="input-group-detail">
+                        <label for="status">Status</label>
+                        <select id="status-akun" disabled>
+                             <option value="aktif">Aktif</option>
+                             <option value="nonaktif">Nonaktif</option>
+                        </select>
+                    </div>
+                    <div class="input-group-detail">
+                <label for="tanggal-terdaftar">Tanggal Terdaftar</label>
+                <input type="date" id="tanggal-terdaftar" value="2025-10-02" disabled>
+                
+            </div>
+        </form>
+    </div>
+    
+    <div class="main-footer-actions">
+        <a href="daftar_santri.html" class="action-btn-form back-btn">
+            <i class="fas fa-arrow-left"></i> Kembali
+        </a>
+        <button class="action-btn-form detail-save-btn" id="btn-simpan-santri-footer" style="display:none;">
+            Simpan
+        </button>
+    </div>
+</main>
