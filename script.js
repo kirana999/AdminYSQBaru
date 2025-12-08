@@ -109,6 +109,8 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
         if (modalSetting) { modalSetting.style.display = 'none'; }
     }
 
+      /** 🏷️ TAG: FUNGSI BAGIAN TAMBAH JADWAL */
+
     function closeTambahJadwalModal() {
     // Ambil elemen DOM secara lokal (alternatif deklarasi global)
     const tambahJadwalModal = document.getElementById('tambah-jadwal-modal');
@@ -117,6 +119,7 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
     if (tambahJadwalModal) tambahJadwalModal.style.display = 'none';
     if (formTambahJadwal) formTambahJadwal.reset();
 
+      /** 🏷️ TAG: FUNGSI BAGIAN TAMBAH KELAS */
     function closeTambahKelasModal() {
         // Ambil elemen DOM secara lokal jika diperlukan, atau gunakan variabel global yang sudah dideklarasikan
         if (tambahKelasModal) tambahKelasModal.style.display = 'none';
@@ -672,6 +675,29 @@ if (formTambahKelas) {
         showToast("Kelas baru berhasil ditambahkan!", "success");
     });
 }
+
+// 🏷️ TAG: H. LOGIKA LINK DETAIL PENGAJAR DARI TABEL
+if (pengajarTableBody) {
+    pengajarTableBody.addEventListener('click', (e) => {
+        const editLink = e.target.closest('.edit-pengajar-link'); 
+        
+        if (editLink) {
+            e.preventDefault(); 
+            
+            const pengajarId = editLink.getAttribute('data-pengajar-id');
+            const targetPage = editLink.getAttribute('href'); 
+            
+            if (pengajarId && targetPage) {
+                // Buat URL baru dengan Query Parameter
+                const newUrl = `${targetPage}?id=${pengajarId}`;
+                window.location.href = newUrl;
+            }
+        }
+    });
+}
+
+
+
 
     // Tutup modal jika klik di luar
     window.addEventListener('click', (event) => {

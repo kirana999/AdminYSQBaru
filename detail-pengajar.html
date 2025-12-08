@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Jadwal - Sahabat Quran</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logoYSQ.png" alt="Sahabat Quran" class="logo-img">
+            </div>
+            
+            <nav class="menu">
+                <a href="Admin.html" class="menu-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="daftar_jadwal.html" class="menu-item"><i class="fas fa-calendar-alt"></i> Daftar Jadwal</a>
+                <a href="daftar_kelas.html" class="menu-item"><i class="fas fa-book"></i> Daftar Kelas</a>
+                <a href="daftar_santri.html" class="menu-item"><i class="fas fa-user-graduate"></i> Daftar Santri</a>
+                <a href="daftar_pengajar.html" class="menu-item active"><i class="fas fa-chalkboard-teacher"></i> Daftar Pengajar</a>
+                <a href="riwayat_absensi.html" class="menu-item"><i class="fas fa-clipboard-list"></i> Riwayat Absensi</a>
+                <a href="#" class="menu-item"><i class="fas fa-scroll"></i> Rapor</a>
+                <a href="#" class="menu-item"><i class="fas fa-file-alt"></i> Laporan</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="footer-buttons-wrapper"> 
+                    <a href="#" class="footer-btn setting">
+                        <i class="fas fa-cog"></i> Setting Profil
+                    </a>
+                    <a href="#" class="footer-btn logout">
+                        <i class="fas fa-sign-out-alt"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </aside>
+<main class="main-content">
+            <header class="dashboard-header class-header-style detail-header-pengajar">
+                <h1 class="header-title">Detail Data Pengajar</h1>
+                <div class="admin-actions">
+                    Admin
+                    <button class="action-btn-form detail-edit-btn" id="btn-edit-pengajar">
+                        Edit
+                    </button>
+                    <button class="action-btn-form detail-save-btn" id="btn-simpan-pengajar-header" style="display:none;">
+                        Simpan
+                    </button>
+                </div>
+            </header>
+
+            <div class="detail-pengajar-wrapper">
+                <form id="pengajar-detail-form">
+                    <div class="info-section info-dasar-pengajar">
+                        <h2 class="info-title">Informasi Dasar</h2>
+                        <div class="form-row-detail">
+                            <div class="input-group-detail">
+                                <label for="nip">NIP</label>
+                                <input type="text" id="nip" value="249078561" disabled>
+                            </div>
+                            <div class="input-group-detail">
+                                <label for="nama-lengkap">Nama Lengkap</label>
+                                <input type="text" id="nama-lengkap" value="David" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row-detail">
+                            <div class="input-group-detail">
+                                <label for="alamat">Alamat</label>
+                                <input type="text" id="alamat" value="Jl. Pendidikan No. 5" disabled>
+                            </div>
+                            <div class="input-group-detail">
+                                <label for="tanggal-lahir">Tanggal Lahir</label>
+                                <input type="date" id="tanggal-lahir" value="1995-05-15" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row-detail">
+                            <div class="input-group-detail">
+                                <label for="no-telepon">No. Telepon</label>
+                                <input type="tel" id="no-telepon" value="0856xxxxxxx" disabled>
+                            </div>
+                            <div class="input-group-detail">
+                                <label for="kelas">Kelas</label>
+                                <select id="kelas" disabled>
+                                    <option value="quran">Quran</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row-detail">
+                             <div class="input-group-detail">
+                                <label for="role">Role</label>
+                                <span class="role-badge-pengajar">Pengajar</span> 
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-section info-akun-pengajar">
+                        <h2 class="info-title">Informasi Akun</h2>
+                        <div class="form-row-detail">
+                            <div class="input-group-detail">
+                                <label for="username">Username</label>
+                                <input type="text" id="username" value="david.quran" disabled>
+                            </div>
+                            <div class="input-group-detail">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="Pengajar@gmail.ac.id" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row-detail">
+                            <div class="input-group-detail">
+                                <label for="status-akun">Status</label>
+                                <span class="status-badge-pengajar">Aktif</span>
+                            </div>
+                            <div class="input-group-detail">
+                                <label>Terdaftar:</label>
+                                <p class="terdaftar-value">07/12/2025 (tanggal dan waktu)</p>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="main-footer-actions">
+                <a href="daftar_pengajar.html" class="action-btn-form back-btn">
+                    <i class="fas fa-arrow-left"></i> Kembali
+                </a>
+                <button class="action-btn-form detail-save-btn" id="btn-simpan-pengajar-footer" style="display:none;">
+                    Simpan
+                </button>
+            </div>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
