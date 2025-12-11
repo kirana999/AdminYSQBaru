@@ -22,6 +22,48 @@ function showToast(message, type) {
     }, 3000); 
 }
 
+// =======================================================
+// !!! FUNGSI YANG HARUS DIISI OLEH BACKEND DEVELOPER !!!
+// (Hanya perlu mengisi logic di dalam fungsi ini)
+// =======================================================
+
+/**
+ * FUNGSI UTAMA: Mengambil data santri dari server berdasarkan ID Kelas.
+ * TEMAN ANDA CUKUP MENGISI BAGIAN INI DENGAN LOGIC FETCH/AXIOS YANG SESUNGGUHNYA.
+ * * @param {string} kelasId - ID Kelas yang datanya ingin diambil.
+ * @returns {Promise<Array<Object>>} - Mengembalikan Promise yang berisi array data santri (Contoh format: [{nama: 'Budi', usia: 17, status: 'Aktif'}])
+ */
+async function fetchSantriData(kelasId) {
+    console.log(`[AJAX LOG] Meminta data santri untuk Kelas ID: ${kelasId} ke server...`);
+    
+    // ------------------------------------------------------------------
+    // HANYA BAGIAN INI YANG PERLU DIISI OLEH BACKEND DEVELOPER:
+    // Contoh implementasi menggunakan Fetch API:
+    /*
+    try {
+        const response = await fetch(`/api/santri/kelas/${kelasId}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data.santri; // Pastikan format kembalian adalah array santri
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        // Jika gagal, tampilkan notifikasi dan kembalikan array kosong
+        showToast(`Gagal koneksi ke server untuk Kelas ID ${kelasId}.`, 'cancel');
+        return []; 
+    }
+    */
+    // ------------------------------------------------------------------
+
+    // Sementara API belum diisi: Beri jeda 500ms dan kembalikan array kosong (tanpa data dummy)
+    return new Promise(resolve => {
+        setTimeout(() => {
+            resolve([]);
+        }, 500); 
+    });
+}
+
 
 // ===================================================
 // BAGIAN 2: LOGIKA UTAMA (POPUP SETTING PROFIL, FILTER, DLL)
@@ -101,6 +143,16 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
     const btnCancelKelas = document.getElementById('btn-cancel-kelas');
     const formTambahKelas = document.getElementById('form-tambah-kelas');
 
+    // 🏷️ TAG: Variabel MODAL DAFTAR SANTRI BARU (Permintaan Anda)
+    const santriModal = document.getElementById('santri-modal');
+    const santriCloseBtn = santriModal ? santriModal.querySelector('.close-btn') : null;
+    // Semua tombol ikon mata di tabel Daftar Kelas
+    const viewSantriBtns = document.querySelectorAll('.view-santri-btn'); 
+    const santriTableBody = document.querySelector('#santri-table tbody');
+    const santriModalTitle = document.getElementById('modal-title');
+    const daftarKelasTableBody = document.querySelector('.class-list-table tbody'); // Selektor tbody di tabel Daftar Kelas
+    const pengajarTableBody = document.querySelector('.teacher-list-table tbody');
+
     // ----------------------------------------------------
     // II. DEFINISI FUNGSI PEMBANTU
     // ----------------------------------------------------
@@ -109,7 +161,7 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
         if (modalSetting) { modalSetting.style.display = 'none'; }
     }
 
-      /** 🏷️ TAG: FUNGSI BAGIAN TAMBAH JADWAL */
+      /** 🏷️ TAG: 1. FUNGSI BAGIAN TAMBAH JADWAL */
 
     function closeTambahJadwalModal() {
     // Ambil elemen DOM secara lokal (alternatif deklarasi global)
@@ -128,7 +180,7 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
     
 }
 
-    /** 🏷️ TAG: FUNGSI SINKRONISASI REAL-TIME */
+    /** 🏷️ TAG: 2. FUNGSI SINKRONISASI REAL-TIME */
     function syncProfileData() {
         if (!nameInput) return;
         
@@ -148,7 +200,7 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
         if(miniPhone && phoneInput) miniPhone.textContent = phoneInput.value.trim();
     }
     
-    /** 🏷️ TAG: FUNGSI FILTER STATUS */
+    /** 🏷️ TAG: 3. FUNGSI FILTER STATUS */
     function initStatusFilter() {
         const tableBody = document.querySelector('.class-list-table tbody');
         
@@ -205,7 +257,8 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
         }
     }
 
-    /* 🏷️ TAG: FUNGSI TANGGAL REAL-TIME */
+
+    /* 🏷️ TAG: 4. FUNGSI TANGGAL REAL-TIME */
     function updateRealTimeDate() {
     // 1. Dapatkan elemen display tanggal
     const dateDisplayElement = document.getElementById('current-date-display');
@@ -237,7 +290,7 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
     setTimeout(updateRealTimeDate, 60000); 
 }
 
-/* 🏷️ TAG: FUNGSI DETAIL PENDAFTAR (FRONTEND MURNI) */
+/* 🏷️ TAG: 5. FUNGSI DETAIL PENDAFTAR (FRONTEND MURNI) */
 
     /** Mengisi data ke dalam elemen-elemen di modal/popup. */
     function fillModalData(data) {
@@ -315,9 +368,8 @@ const formTambahJadwal = document.getElementById('form-tambah-jadwal');
         if (detailModal) detailModal.style.display = "none";
     }
     
-    // ===================================================
-// 🏷️ TAG: C. LOGIKA MODAL TAMBAH KELAS (BARU)
-// ===================================================
+
+// 🏷️ TAG: 6. LOGIKA MODAL TAMBAH KELAS (BARU)
 
 const KelasModalHandler = {
     // Properti untuk menyimpan referensi elemen DOM
@@ -387,6 +439,33 @@ const KelasModalHandler = {
     }
 };
 
+    
+    // 🏷️ TAG: 7. LOGIKA MODAL DAFTAR SANTRI (BARU)
+
+    /**
+     * Mengisi konten modal dengan data santri yang diterima.
+     * @param {Array<Object>} santriList - Daftar santri [{nama: 'A', usia: 17, status: 'Aktif'}, ...]
+     * @param {string} namaKelas - Nama kelas saat ini
+     */
+    function populateSantriModalContent(santriList, namaKelas) {
+        if (santriModalTitle) santriModalTitle.textContent = `Daftar Santri Kelas: ${namaKelas}`;
+        if (santriTableBody) santriTableBody.innerHTML = ''; 
+
+        if (!santriList || santriList.length === 0) {
+            if (santriTableBody) santriTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 20px;">Tidak ada santri di kelas ini.</td></tr>';
+            return;
+        }
+
+        santriList.forEach((s, index) => {
+            const row = santriTableBody.insertRow();
+            row.insertCell().textContent = `${index + 1}.`;
+            row.insertCell().textContent = s.nama;
+            row.insertCell().textContent = s.usia;
+            row.insertCell().textContent = s.status;
+        });
+    }
+   
+
     // ----------------------------------------------------
     // III. IMPLEMENTASI EVENT LISTENERS
     // ----------------------------------------------------
@@ -433,6 +512,7 @@ const KelasModalHandler = {
             }
         });
     }
+
 
     // 🏷️ TAG: B. LOGIKA MODAL DETAIL PENDAFTAR (INTI PERMINTAAN)
 
@@ -504,6 +584,7 @@ if (registrasiTableBody) {
             }
         });
     }
+
 
     // 🏷️ TAG: D. LOGIKA MODAL RESET PENDAFTARAN
 // Buka Modal
@@ -696,10 +777,51 @@ if (pengajarTableBody) {
     });
 }
 
+// 🏷️ TAG: I. LOGIKA MODAL DAFTAR SANTRI (IMPLEMENTASI)
 
+    if (daftarKelasTableBody && santriModal) {
+        daftarKelasTableBody.addEventListener('click', async (e) => {
+            const viewButton = e.target.closest('.view-santri-btn'); 
+            
+            if (viewButton) {
+                const kelasId = viewButton.getAttribute('data-kelas-id');
+                const row = viewButton.closest('tr');
+                
+                if (!kelasId || !row) return;
 
+                const namaKelas = row.cells[1] ? row.cells[1].textContent.trim() : 'Tidak Diketahui';
+
+                try {
+                    // Tampilkan status 'Loading'
+                    populateSantriModalContent(null, namaKelas); 
+                    santriModal.style.display = 'block';
+                    
+                    // Panggil fungsi Backend (ini yang perlu diisi teman Anda)
+                    const santriData = await fetchSantriData(kelasId);
+                    
+                    // Isi modal dengan data yang diterima
+                    populateSantriModalContent(santriData, namaKelas);
+
+                } catch (error) {
+                    console.error('Gagal mengambil data santri:', error);
+                    // Tampilkan pesan error di modal
+                    if (santriTableBody) {
+                        santriTableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: red;">Gagal memuat data santri. Silakan coba lagi.</td></tr>`;
+                    }
+                }
+            }
+        });
+    }
+
+    // Tutup Modal Santri (Tombol X)
+    if (santriCloseBtn) {
+        santriCloseBtn.addEventListener('click', () => {
+            if (santriModal) santriModal.style.display = 'none';
+        });
+    }
 
     // Tutup modal jika klik di luar
+
     window.addEventListener('click', (event) => {
         if (event.target === modalSetting) { hideProfileModal(); }
         
@@ -723,6 +845,9 @@ if (pengajarTableBody) {
         closeTambahJadwalModal();
         showToast("Penambahan jadwal dibatalkan.", "cancel");
     }
+
+    // Tutup Modal Santri jika klik di luar (BARU)
+    if (santriModal && event.target === santriModal) { santriModal.style.display = "none"; }
 
 });
     
