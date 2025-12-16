@@ -35,78 +35,93 @@
                 </div>
             </div>
         </aside>
-        <main class="main-content">
+<main class="main-content">
             <header class="dashboard-header class-header-style">
-                <h1 class="header-title">Riwayat Absensi Pengajar</h1>
+                <h1 class="header-title">Riwayat Absensi</h1>
                 <div class="admin-profile">
-                    <span class="header-date" id="current-date-display">Rabu, 19 November 2025</span>
+                    <span id="current-date" class="admin-text"></span>
                 </div>
             </header>
             
-            <section class="absensi-controls-section">
-                <div class="absensi-controls-card">
-                    
-                    <div class="absensi-filters-group">
-                        
-                        <div class="filter-group-item absensi-select">
-                            <label for="tanggal_absensi">Tanggal</label>
-                            <select id="tanggal_absensi" name="tanggal_absensi" class="styled-select-absensi">
-                                <option value="bulan_ini">Bulan Ini</option>
-                                <option value="bulan_lalu">Bulan Lalu</option>
-                            </select>
-                        </div>
-                        
-                        <div class="filter-group-item absensi-select">
-                            <label for="pilih_pengajar">Pilih Pengajar:</label>
-                            <select id="pilih_pengajar" name="pilih_pengajar" class="styled-select-absensi">
-                                <option value="usmanii">Usmanii</option>
-                                <option value="siti">Siti</option>
-                            </select>
-                        </div>
+            <!-- ============================
+                RINGKASAN ABSENSI PENGAJAR
+            =============================== -->
+            <section class="absensi-summary-section">
+                <div class="absensi-summary-wrapper">
 
-                        </div> <button class="action-btn-form export-report-btn">
-                            <i class="fas fa-file-export"></i> Ekspor Laporan
-                        </button>
+                    <div class="absensi-summary-card">
+                        <div class="summary-value" id="sum_hadir">0</div>
+                        <div class="summary-label">Hadir</div>
                     </div>
+
+                    <div class="absensi-summary-card">
+                        <div class="summary-value" id="sum_izin">0</div>
+                        <div class="summary-label">Izin</div>
+                    </div>
+
+                    <div class="absensi-summary-card">
+                        <div class="summary-value" id="sum_sakit">0</div>
+                        <div class="summary-label">tidak hadir</div>
+                    </div>
+
+                </div>
             </section>
+            
+            <!-- ============================
+                FILTER + EKSPORT LAPORAN
+            =============================== -->
+            <section class="absensi-controls-section">
+    <div class="absensi-controls-card">
+
+        <div class="absensi-filters-group">
+
+            <div class="filter-box">
+                <label for="start-date">Start Date:</label>
+                <input type="date" id="start-date">
+            </div>
+
+            <div class="filter-box">
+                <label for="end-date">End Date:</label>
+                <input type="date" id="end-date">
+            </div>
+
+            <div class="filter-box">
+                <label for="pilih_pengajar">Pilih Pengajar:</label>
+                <select id="pilih_pengajar">
+                    <option value="">Semua Pengajar</option>
+                </select>
+            </div>
+
+        </div>
+
+        <button class="action-btn-form export-report-btn" id="btn-export-absensi">
+            <i class="fas fa-file-export"></i> Ekspor Laporan
+        </button>
+
+    </div>
+</section>
+
+            <!-- ============================
+                TABEL RIWAYAT ABSENSI
+            =============================== -->
             <section class="absensi-table-section">
                 <div class="pendaftar-table"> 
                     <table class="absensi-summary-table">
                         <thead>
                             <tr>
-                                <th>Minggu</th>
-                                <th>Hadir</th>
-                                <th>Izin</th>
-                                <th>Sakit</th>
+                                <th>Tanggal</th>
+                                <th>Kelas</th>
+                                <th>Status</th>
                                 <th>Catatan</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Minggu 1</td>
-                                <td>7</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Minggu 2</td>
-                                <td>7</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Minggu 3</td>
-                                <td>7</td>
-                                <td>0</td>
-                                <td>0</td>
-                                <td></td>
-                            </tr>
+                        <tbody id="table-riwayat-body">
+                            <!-- Diisi oleh JS -->
                         </tbody>
                     </table>
                 </div>
             </section>
+
             <div class="absensi-footer-actions">
                 <a href="Admin.html" class="action-btn-form back-btn-absensi">
                     <i class="fas fa-arrow-left"></i> Kembali
