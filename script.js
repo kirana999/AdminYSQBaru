@@ -22,6 +22,75 @@ function showToast(message, type) {
     }, 3000); 
 }
 
+/* ===================================================
+        TAB ABSENSI (PENGAJAR / SANTRI)
+=================================================== */
+function switchTab(type) {
+    const btnPengajar = document.getElementById("btn-pengajar");
+    const btnSantri   = document.getElementById("btn-santri");
+    
+    // Elemen Label dan Select
+    const labelPilih   = document.getElementById("label-pilih");
+    const selectData   = document.getElementById("select-data");
+    
+    // Elemen Summary
+    const labelDynamic = document.getElementById("label-dynamic");
+    const labelAlfa    = document.getElementById("label-alfa");
+    
+    // Elemen Tabel
+    const tableHeader  = document.querySelector(".table-wrapper thead tr");
+
+    if (type === "pengajar") {
+        btnPengajar.classList.add("active");
+        btnSantri.classList.remove("active");
+
+        // Perubahan Teks Label & Dropdown
+        if (labelPilih) labelPilih.innerText = "Pilih Pengajar :";
+        if (selectData) {
+            selectData.innerHTML = '<option value="">Semua Pengajar</option>';
+        }
+
+        // Perubahan Summary
+        if (labelDynamic) labelDynamic.innerText = "Sakit";
+        if (labelAlfa) labelAlfa.innerText = "Tidak Hadir";
+
+        // Update Kolom Tabel
+        if (tableHeader) {
+            tableHeader.innerHTML = `
+                <th>Tanggal</th>
+                <th>Kelas</th>
+                <th>Status</th>
+                <th>Catatan</th>
+            `;
+        }
+
+    } else {
+        btnSantri.classList.add("active");
+        btnPengajar.classList.remove("active");
+
+        // PERUBAHAN UTAMA: Nama Santri
+        if (labelPilih) labelPilih.innerText = "Nama Santri :";
+        if (selectData) {
+            selectData.innerHTML = '<option value="">Semua Santri</option>';
+        }
+
+        // Perubahan Summary
+        if (labelDynamic) labelDynamic.innerText = "Mustamiah";
+        if (labelAlfa) labelAlfa.innerText = "Alfa";
+
+        // Update Kolom Tabel (Tambah kolom Nama Santri)
+        if (tableHeader) {
+            tableHeader.innerHTML = `
+                <th>Tanggal</th>
+                <th>Nama Santri</th>
+                <th>Kelas</th>
+                <th>Status</th>
+                <th>Catatan</th>
+            `;
+        }
+    }
+}
+
 // =======================================================
 // !!! FUNGSI YANG HARUS DIISI OLEH BACKEND DEVELOPER !!!
 // (Hanya perlu mengisi logic di dalam fungsi ini)

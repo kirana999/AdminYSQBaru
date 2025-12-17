@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Absensi - Sahabat Quran</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logoYSQ.png" alt="Sahabat Quran" class="logo-img">
+            </div>
+            
+            <nav class="menu">
+                <a href="Admin.html" class="menu-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="daftar_jadwal.html" class="menu-item"><i class="fas fa-calendar-alt"></i> Daftar Jadwal</a>
+                <a href="daftar_kelas.html" class="menu-item"><i class="fas fa-book"></i> Daftar Kelas</a>
+                <a href="daftar_santri.html" class="menu-item"><i class="fas fa-user-graduate"></i> Daftar Santri</a>
+                <a href="daftar_pengajar.html" class="menu-item"><i class="fas fa-chalkboard-teacher"></i> Daftar Pengajar</a>
+               <div class="menu-group has-submenu" id="riwayat-absensi-group">
+    <a href="#" class="menu-item parent-link" id="riwayat-absensi-toggle-link">
+        <i class="fas fa-clipboard-list"></i> Riwayat Absensi
+    </a>
+    <div class="submenu-container">
+        <a href="absensi-pengajar.html" class="menu-item submenu-item" data-target="pengajar">
+            Absensi Pengajar
+        </a>
+        <a href="absensi-santri.html" class="menu-item submenu-item" data-target="santri">
+            Absensi Santri
+        </a>
+    </div>
+</div>   
+                <a href="#" class="menu-item"><i class="fas fa-scroll"></i> Rapor</a>
+                <a href="#" class="menu-item"><i class="fas fa-file-alt"></i> Laporan</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="footer-buttons-wrapper"> 
+                    <a href="#" class="footer-btn setting">
+                        <i class="fas fa-cog"></i> Setting Profil
+                    </a>
+                    <a href="#" class="footer-btn logout">
+                        <i class="fas fa-sign-out-alt"></i> Keluar
+                    </a>
+                </div>
+            </div>
+        </aside>
+<main class="main-content">
+            <header class="dashboard-header class-header-style">
+                <h1 class="header-title">Riwayat Absensi</h1>
+                <div class="admin-profile">
+                    <span id="current-date" class="admin-text"></span>
+                </div>
+            </header>
+            
+            <!-- ============================
+                RINGKASAN ABSENSI SANTRI
+            =============================== -->
+            <section class="absensi-summary-section">
+            <div class="absensi-summary-wrapper">
+                <div class="absensi-summary-card" style="background-color: #DDEEFF;">
+                    <div class="summary-value">45</div>
+                    <div class="summary-label">Total Santri Aktif</div>
+                </div>
+                <div class="absensi-summary-card" style="background-color: #E6E6FF;">
+                    <div class="summary-value">12</div>
+                    <div class="summary-label">Total Pertemuan Bulan Ini</div>
+                </div>
+                <div class="absensi-summary-card" style="background-color: #FFF0E6;">
+                    <div class="summary-value">2</div>
+                    <div class="summary-label">Santri Alpa Terbanyak</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="absensi-controls-section">
+            <div class="absensi-controls-card">
+                <div class="absensi-filters-group">
+                    <div class="filter-box">
+                        <label for="start-date">Start Date:</label>
+                        <input type="date" id="start-date-siswa">
+                    </div>
+                    <div class="filter-box">
+                        <label for="pilih_kelas">Pilih Kelas:</label>
+                        <select id="pilih_kelas">
+                            <option value="">Semua Kelas</option>
+                            <option value="">Iqra 1</option>
+                            <option value="">Tahfidz A</option>
+                        </select>
+                    </div>
+                    <div class="filter-box">
+                        <label for="pilih_santri">Pilih Santri:</label>
+                        <select id="pilih_santri">
+                            <option value="">Semua Santri</option>
+                            <option value="">Fulan A</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="action-btn-form export-report-btn" id="btn-export-absensi-siswa">
+                    <i class="fas fa-file-export"></i> Ekspor Laporan
+                </button>
+            </div>
+        </section>
+
+        <section class="absensi-table-section">
+            <div class="pendaftar-table"> 
+                <table class="absensi-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Nama Santri</th>
+                            <th>Hadir</th>
+                            <th>Izin</th>
+                            <th>Sakit</th>
+                            <th>Alpa</th>
+                            <th>Persentase</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Fulan A</td><td>10</td><td>1</td><td>1</td><td>0</td><td>90%</td></tr>
+                        <tr><td>Fulan B</td><td>8</td><td>2</td><td>0</td><td>2</td><td>75%</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        
+        <div class="absensi-footer-actions">
+            <a href="Admin.html" class="action-btn-form back-btn-absensi">
+                <i class="fas fa-arrow-left"></i> Kembali
+            </a>
+        </div>
