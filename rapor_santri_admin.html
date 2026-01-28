@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penerbitan Rapor - Sahabat Quran</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="admin-rapor.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="ysq-admin-module">
+    <div class="container">
+        <aside class="sidebar">
+            <div class="logo">
+                <img src="logoYSQ.png" alt="Sahabat Quran" class="logo-img">
+            </div>
+            <nav class="menu">
+                <a href="Admin.html" class="menu-item"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="daftar_jadwal.html" class="menu-item"><i class="fas fa-calendar-alt"></i> Daftar Jadwal</a>
+                <a href="daftar_kelas.html" class="menu-item"><i class="fas fa-book"></i> Daftar Kelas</a>
+                <a href="daftar_santri.html" class="menu-item"><i class="fas fa-user-graduate"></i> Daftar Santri</a>
+                <a href="daftar_pengajar.html" class="menu-item"><i class="fas fa-chalkboard-teacher"></i> Daftar Pengajar</a>
+                <a href="riwayat_absensi.html" class="menu-item"><i class="fas fa-clipboard-list"></i> Riwayat Absensi</a>
+                <a href="rapor_santri_admin.html" class="menu-item active"><i class="fas fa-scroll"></i> Rapor</a>
+                <a href="#" class="menu-item"><i class="fas fa-file-alt"></i> Laporan</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="footer-buttons-wrapper"> 
+                    <a href="#" class="footer-btn setting"><i class="fas fa-cog"></i> Setting Profil</a>
+                    <a href="#" class="footer-btn logout"><i class="fas fa-sign-out-alt"></i> Keluar</a>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="dashboard-header class-header-style">
+                <div class="header-left">
+                    <h1 class="header-title">Penerbitan Rapor</h1>
+                    <p class="header-subtitle">Verifikasi draf akhir dan publikasikan rapor santri secara resmi.</p>
+                </div>
+                <div class="admin-profile">
+                    <span class="header-date" id="current-date-display">Rabu, 28 Januari 2026</span>
+                </div>
+            </header>
+
+            <div class="admin-controls-card">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="search-santri" placeholder="Cari Nama atau NIS..." onkeyup="filterRapor()">
+                </div>
+                
+                <div class="filter-wrapper-row">
+                    <div class="filter-group">
+                        <label>KELAS:</label>
+                        <select id="filter-kelas" onchange="filterRapor()">
+                            <option value="all">Semua Kelas</option>
+                            <option value="Tahsin 2">Tahsin 2</option>
+                            <option value="Tahfidz A">Tahfidz A</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-group">
+                        <label>STATUS:</label>
+                        <select id="filter-status" onchange="filterRapor()">
+                            <option value="all">Semua Status</option>
+                            <option value="draft">📝 Draft (Tinjau)</option>
+                            <option value="published">✅ Terbit</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ysq-card table-card">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>NAMA SANTRI</th>
+                            <th>NIS</th>
+                            <th>KELAS</th>
+                            <th>PENGAJAR</th>
+                            <th>STATUS</th>
+                            <th>AKSI</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rapor-table-body">
+                        <tr class="status-row-draft">
+                            <td class="col-nama"><strong>Ahmad Fauzan</strong></td>
+                            <td class="col-nis">202601001</td>
+                            <td>Tahsin 2</td>
+                            <td>Ust. Muhammad Ridwan</td>
+                            <td><span class="badge-status draft">DRAFT</span></td>
+                            <td>
+                                <button class="btn-review" onclick="openReview('Ahmad Fauzan', '202601001', 'Tahsin 2', 'Draft')">
+                                    <i class="fas fa-eye"></i> Tinjau
+                                </button>
+                            </td>
+                        </tr>
+                        <tr class="status-row-published">
+                            <td class="col-nama"><strong>Zaidan Ali</strong></td>
+                            <td class="col-nis">202601002</td>
+                            <td>Tahsin 2</td>
+                            <td>Ust. Muhammad Ridwan</td>
+                            <td><span class="badge-status published">TERBIT</span></td>
+                            <td>
+                                <button class="btn-view" onclick="openReview('Zaidan Ali', '202601002', 'Tahsin 2', 'Terbit')">
+                                    <i class="fas fa-file-alt"></i> Lihat
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <div id="ysq-modal-isolation-root">
+        <div id="reviewModal" class="ysq-exclusive-modal-overlay">
+            <div class="ysq-exclusive-modal-card">
+                
+                <div class="ysq-exclusive-modal-header">
+                    <h3><i class="fas fa-file-signature"></i> <span id="modal-title">Verifikasi Rapor</span></h3>
+                    <button class="ysq-exclusive-modal-close" onclick="closeModal()">&times;</button>
+                </div>
+
+                <div class="ysq-exclusive-modal-body">
+                    <div class="ysq-exclusive-modal-info-box">
+                        <div class="ysq-exclusive-modal-line">
+                            <span>Nama:</span> <strong id="modal-nama">-</strong>
+                        </div>
+                        <div class="ysq-exclusive-modal-line">
+                            <span>NIS:</span> <strong id="modal-nis">-</strong>
+                        </div>
+                        <div class="ysq-exclusive-modal-line">
+                            <span>Kelas:</span> <strong id="modal-kelas">-</strong>
+                        </div>
+                    </div>
+
+                    <div id="publish-confirmation" class="ysq-exclusive-modal-confirm-text">
+                        <p>Terbitkan Rapor Resmi?</p>
+                        <small>Data akan dipublikasikan dan dapat diakses oleh orang tua santri.</small>
+                    </div>
+
+                    <div id="published-info" class="ysq-exclusive-modal-published-info" style="display: none;">
+                        <p><i class="fas fa-check-circle"></i> Rapor ini telah berhasil diterbitkan.</p>
+                    </div>
+                </div>
+
+                <div class="ysq-exclusive-modal-footer">
+                    <button class="ysq-exclusive-modal-btn ysq-exclusive-modal-btn-cancel" onclick="closeModal()">Batal</button>
+                    <button id="btn-action-publish" class="ysq-exclusive-modal-btn ysq-exclusive-modal-btn-confirm" onclick="processPublish()">Terbitkan Rapor</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="rapor-admin.js"></script>
+</body>
+</html>
