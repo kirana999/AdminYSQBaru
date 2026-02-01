@@ -919,6 +919,25 @@ if (pengajarTableBody) {
     if (santriModal && event.target === santriModal) { santriModal.style.display = "none"; }
 
 });
+
+function toggleSubMenu() {
+    const subMenu = document.getElementById("sub-menu-laporan");
+    const arrow = document.querySelector(".arrow-icon");
+    
+    subMenu.classList.toggle("show");
+    arrow.classList.toggle("rotate");
+}
+
+// Tambahkan logika predikat di fungsi hitungRataTahfidz yang sudah ada
+// Contoh logika:
+function updatePredikat(nilai) {
+    const el = document.getElementById("predikat_tahfidz");
+    if (nilai >= 90) el.textContent = "MUMTAZ";
+    else if (nilai >= 80) el.textContent = "JAYYID JIDDAN";
+    else if (nilai >= 70) el.textContent = "JAYYID";
+    else if (nilai >= 60) el.textContent = "MAQBUL";
+    else el.textContent = "DHAIF";
+}
     
 
     // --- D. EKSEKUSI AKHIR ---

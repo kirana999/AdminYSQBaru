@@ -21,8 +21,25 @@
                 <a href="daftar_santri.html" class="menu-item"><i class="fas fa-user-graduate"></i> Daftar Santri</a>
                 <a href="daftar_pengajar.html" class="menu-item"><i class="fas fa-chalkboard-teacher"></i> Daftar Pengajar</a>
                 <a href="riwayat_absensi.html" class="menu-item"><i class="fas fa-clipboard-list"></i> Riwayat Absensi</a>
-                <a href="rapor_santri_admin.html" class="menu-item"><i class="fas fa-scroll"></i> Rapor</a>
-                <a href="#" class="menu-item"><i class="fas fa-file-alt"></i> Laporan</a>
+
+                    <div class="ysq-nav-group">
+                    <div class="menu-item ysq-report-toggle" id="laporan-btn">
+                        <span><i class="fas fa-file-alt"></i> Laporan</span>
+                        <i class="fas fa-chevron-down ysq-report-chevron"></i>
+                    </div>
+                    
+                    <div id="laporan-submenu" class="ysq-report-submenu-wrapper">
+                        <a href="keuangan-pemasukan.html" class="ysq-report-item-link">
+                            <i class="fas fa-arrow-circle-down"></i> Keuangan Pemasukan
+                        </a>
+                        <a href="keuangan-pengeluaran.html" class="ysq-report-item-link">
+                            <i class="fas fa-arrow-circle-up"></i> Keuangan Pengeluaran
+                        </a>
+                        <a href="laba-rugi.html" class="ysq-report-item-link">
+                            <i class="fas fa-chart-bar"></i> Laporan Laba Rugi
+                        </a>
+                    </div>
+                </div>
             </nav>
 
             <div class="sidebar-footer">
@@ -225,5 +242,6 @@
     </div>
 </div>
     <script src="script.js"></script>
+    <script src="laporan-admin.js"></script>
 </body>
 </html>
