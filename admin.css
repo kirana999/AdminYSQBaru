@@ -3706,22 +3706,17 @@ select.ysq-inc-input {
 }
 
 /* ========================================================= */
-/* KHUSUS HALAMAN PENGELUARAN (THEME ORANGE/RED)             */
+/* KHUSUS HALAMAN PENGELUARAN (THEME CLEAN RED/ORANGE)       */
 /* ========================================================= */
 
-/* 1. Tata Letak Filter: Urutan, Kategori, & Search Sejajar */
-.ysq-out-filter-row {
-    display: flex !important;
+/* 1. Tata Letak Filter: Periode, Kategori, & Tombol Sejajar  */
+/* Disamakan dengan struktur grid Pemasukan agar konsisten    */
+.ysq-inc-filter-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1.5fr auto; /* Layout 4 kolom */
     gap: 15px !important;
     align-items: flex-end !important;
     width: 100%;
-}
-
-/* Membagi ruang adil untuk 3 kolom filter */
-.ysq-out-filter-row .ysq-inc-form-group {
-    flex: 1;
-    min-width: 0;
-    margin-bottom: 0 !important;
 }
 
 /* 2. Gaya Search Bar dengan Ikon */
@@ -3743,8 +3738,8 @@ select.ysq-inc-input {
 .ysq-btn-out-primary {
     background-color: #e67e22 !important; /* Warna Orange Pengeluaran */
     color: #ffffff !important;
-    height: 40px;
-    padding: 0 20px;
+    height: 42px;
+    padding: 0 22px;
     border-radius: 10px;
     font-weight: 700;
     display: flex;
@@ -3762,15 +3757,20 @@ select.ysq-inc-input {
     box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
 }
 
-/* 4. Gaya Baris Tabel & Nominal (Indikator Uang Keluar) */
+/* 4. Gaya Baris Tabel (Tanpa Garis Merah di Sisi Kiri) */
 .ysq-row-out {
-    background-color: #fff8f8 !important; /* Merah sangat muda */
-    border-left: 4px solid #ef4444 !important; /* Indikator merah di kiri */
+    background-color: #ffffff !important; /* Background Putih Bersih */
+    transition: background-color 0.2s ease;
 }
 
+.ysq-row-out:hover {
+    background-color: #fff5f5 !important; /* Highlight merah sangat tipis saat kursor di atasnya */
+}
+
+/* Teks Nominal Pengeluaran */
 .text-nominal-out {
-    color: #ef4444 !important;
-    font-weight: 800;
+    color: #e74c3c !important; /* Warna merah tegas untuk angka pengeluaran */
+    font-weight: 700;
 }
 
 /* 5. Gaya Tombol Batal & Modal */
@@ -3778,17 +3778,27 @@ select.ysq-inc-input {
     background-color: #f1f5f9 !important;
     color: #475569 !important;
     border: 1px solid #e2e8f0 !important;
+    border-radius: 8px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.2s ease;
 }
 
 .ysq-btn-secondary:hover {
     background-color: #e2e8f0 !important;
 }
 
-/* 6. Responsif: Menjadi satu kolom pada layar HP */
+/* 6. Penyesuaian Card Ringkasan (Single Card) */
+.ysq-inc-stat-card.ysq-inc-border-net {
+    border-left: 5px solid #e74c3c !important; /* Garis merah hanya pada kartu ringkasan saja */
+    background: #ffffff;
+}
+
+/* 7. Responsif: Layout Grid pada layar HP */
 @media (max-width: 850px) {
-    .ysq-out-filter-row {
-        flex-direction: column;
-        align-items: stretch;
+    .ysq-inc-filter-grid {
+        grid-template-columns: 1fr !important; /* Menjadi satu kolom tumpuk */
         gap: 12px;
     }
 }
